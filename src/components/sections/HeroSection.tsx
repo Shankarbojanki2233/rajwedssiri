@@ -109,9 +109,11 @@ function CountdownCard({ value, label }: { value: number; label: string }) {
 
 // ── Hero Section ──────────────────────────────────────────────────────────
 export default function HeroSection() {
-  const { days, hours, minutes, seconds } = useCountdown(
+  const { days, hours, minutes, seconds, mounted } = useCountdown(
     weddingData.wedding.date
   );
+  // Use zeros during SSR to prevent hydration mismatch
+  const countdownValues = mounted ? { days, hours, minutes, seconds } : { days: 0, hours: 0, minutes: 0, seconds: 0 };
   const formattedDate = formatDate(weddingData.wedding.date);
 
   const handleScroll = (target: string) => {
@@ -283,10 +285,10 @@ export default function HeroSection() {
           variants={childVariants}
           className="mt-8 flex gap-3 sm:mt-10 sm:gap-5 md:gap-6"
         >
-          <CountdownCard value={days} label="Days" />
-          <CountdownCard value={hours} label="Hours" />
-          <CountdownCard value={minutes} label="Minutes" />
-          <CountdownCard value={seconds} label="Seconds" />
+          <CountdownCard value={countdownValues.days} label="Days" />
+          <CountdownCard value={countdownValues.hours} label="Hours" />
+          <CountdownCard value={countdownValues.minutes} label="Minutes" />
+          <CountdownCard value={countdownValues.seconds} label="Seconds" />
         </motion.div>
 
         {/* CTA Buttons */}

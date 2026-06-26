@@ -52,12 +52,15 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
 // ── Main Component ───────────────────────────────────────────────────────────
 export default function LiveStreamSection() {
   const { liveStream } = weddingData;
-  const { days, hours, minutes, seconds, isComplete } = useCountdown(liveStream.startTime);
+  const { days, hours, minutes, seconds, isComplete, mounted } = useCountdown(liveStream.startTime);
 
   // Don't render if live stream is disabled
   if (!liveStream.enabled) return null;
 
-  const isLive = isComplete;
+  // Use zeros during SSR to prevent hydration mismatch
+  const countdownValues = mounted ? { days, hours, minutes, seconds } : { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  // Only show live state after mount to prevent SSR/client mismatch
+  const isLive = mounted && isComplete;
 
   return (
     <SectionFrame id="livestream" variant="dark">
@@ -153,13 +156,13 @@ export default function LiveStreamSection() {
 
               {/* Countdown */}
               <div className="mt-8 flex items-center justify-center gap-3 md:gap-5">
-                <CountdownUnit value={days} label="Days" />
+                <CountdownUnit value={countdownValues.days} label="Days" />
                 <span className="font-display mt-[-1.5rem] text-xl text-gold/50">:</span>
-                <CountdownUnit value={hours} label="Hours" />
+                <CountdownUnit value={countdownValues.hours} label="Hours" />
                 <span className="font-display mt-[-1.5rem] text-xl text-gold/50">:</span>
-                <CountdownUnit value={minutes} label="Min" />
+                <CountdownUnit value={countdownValues.minutes} label="Min" />
                 <span className="font-display mt-[-1.5rem] text-xl text-gold/50">:</span>
-                <CountdownUnit value={seconds} label="Sec" />
+                <CountdownUnit value={countdownValues.seconds} label="Sec" />
               </div>
 
               {/* Call to action */}

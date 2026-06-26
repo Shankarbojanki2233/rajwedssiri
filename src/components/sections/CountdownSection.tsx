@@ -172,7 +172,7 @@ function CelebrationMessage() {
 
 // ── Countdown Section ─────────────────────────────────────────────────────
 export default function CountdownSection() {
-  const { days, hours, minutes, seconds, isComplete } = useCountdown(
+  const { days, hours, minutes, seconds, isComplete, mounted } = useCountdown(
     weddingData.wedding.date
   );
 
@@ -183,10 +183,21 @@ export default function CountdownSection() {
     { value: seconds, label: 'Seconds', teluguLabel: 'సెకన్లు' },
   ];
 
+  // Placeholder during SSR to prevent hydration mismatch
+  const placeholderUnits = [
+    { value: 0, label: 'Days', teluguLabel: 'రోజులు' },
+    { value: 0, label: 'Hours', teluguLabel: 'గంటలు' },
+    { value: 0, label: 'Minutes', teluguLabel: 'నిమిషాలు' },
+    { value: 0, label: 'Seconds', teluguLabel: 'సెకన్లు' },
+  ];
+
+  const displayUnits = mounted ? countdownUnits : placeholderUnits;
+  const displayComplete = mounted && isComplete;
+
   return (
     <>
       {/* Confetti celebration when countdown reaches zero */}
-      <Confetti active={isComplete} duration={6000} />
+      <Confetti active={displayComplete} duration={6000} />
 
       <SectionFrame id="countdown" variant="dark" showTopBorder showBottomBorder>
         <motion.div
@@ -223,7 +234,7 @@ export default function CountdownSection() {
           <RangoliDivider variant="lotus" className="my-6 w-full max-w-lg sm:my-8" />
 
           {/* ── Countdown or Celebration ───────────────────────────────── */}
-          {isComplete ? (
+          {displayComplete ? (
             <CelebrationMessage />
           ) : (
             <motion.div
@@ -233,7 +244,7 @@ export default function CountdownSection() {
               viewport={{ once: true }}
               className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10"
             >
-              {countdownUnits.map((unit) => (
+              {displayUnits.map((unit) => (
                 <CountdownUnit
                   key={unit.label}
                   value={unit.value}
