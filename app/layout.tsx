@@ -38,9 +38,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className="antialiased">
+      <body className="antialiased flex flex-col items-center">
         <Navbar />
-        {children}
+        <main className="w-full flex flex-col items-center">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

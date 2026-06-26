@@ -21,13 +21,13 @@ export default function Footer() {
         }} />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 py-12">
+      <div className="container relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         {/* Telugu Blessing */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-8 text-center"
+          className="mb-8 flex flex-col items-center text-center"
         >
           <p className="font-telugu text-2xl md:text-3xl text-gold font-medium mb-2">
             మీ రాక మా అదృష్టం

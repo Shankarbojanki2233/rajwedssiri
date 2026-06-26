@@ -235,19 +235,14 @@ export default function EventsSection() {
       <div className="hidden w-full md:block">
         <div
           className={cn(
-            '-mx-4 flex gap-6 overflow-x-auto px-4 pb-4',
+            'flex gap-6 overflow-x-auto px-4 pb-4',
             'snap-x snap-mandatory scroll-smooth justify-center',
             'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gold/30'
           )}
         >
-          {/* Spacer for centering when fewer items */}
-          <div className="shrink-0 md:w-0 lg:w-4" aria-hidden="true" />
-
           {weddingData.events.map((event, index) => (
             <EventCard key={event.id} event={event} index={index} />
           ))}
-
-          <div className="shrink-0 md:w-0 lg:w-4" aria-hidden="true" />
         </div>
 
         {/* Scroll hint */}

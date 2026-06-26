@@ -18,7 +18,7 @@ import ContactSection from '@/components/sections/ContactSection';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-maroon via-[#5a0016] to-[#2d000b] text-cream">
+    <>
       {/* Hero Section */}
       <HeroSection />
 
@@ -63,6 +63,6 @@ export default function Home() {
 
       {/* Contact Section */}
       <ContactSection />
-    </div>
+    </>
   );
 }

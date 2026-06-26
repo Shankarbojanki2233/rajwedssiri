@@ -56,7 +56,7 @@ export default function SectionFrame({
         </svg>
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-4 text-center sm:px-6 lg:px-8">
         {children}
       </div>
 
