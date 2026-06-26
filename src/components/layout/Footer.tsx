@@ -21,7 +21,7 @@ export default function Footer() {
         }} />
       </div>
 
-      <div className="container relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8 flex flex-col items-center">
         {/* Telugu Blessing */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

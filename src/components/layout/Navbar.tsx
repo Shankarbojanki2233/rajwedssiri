@@ -65,7 +65,7 @@ export default function Navbar() {
             : 'bg-transparent py-4'
         )}
       >
-        <div className="container mx-auto flex items-center justify-between px-4">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo / Monogram */}
           <a
             href="#hero"

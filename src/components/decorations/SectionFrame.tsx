@@ -28,7 +28,7 @@ export default function SectionFrame({
     <section
       id={id}
       className={cn(
-        'relative overflow-hidden py-16 md:py-24',
+        'relative w-full overflow-hidden py-16 md:py-24 flex flex-col items-center justify-center',
         bgVariants[variant],
         className
       )}
@@ -56,7 +56,7 @@ export default function SectionFrame({
         </svg>
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center justify-center px-4 text-center sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         {children}
       </div>
 
