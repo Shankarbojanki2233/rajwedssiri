@@ -75,6 +75,17 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-2 border-t border-gold/10 pt-6 text-center text-xs text-cream/30">
           <p>© {new Date().getFullYear()} {weddingData.couple.bride.firstName} & {weddingData.couple.groom.firstName}. Made with ❤️</p>
           <p className="font-telugu text-xs">శుభం భవతు 🙏</p>
+          <p className="mt-2 text-cream/40">
+            Designed & Developed by{' '}
+            <a
+              href="https://www.instagram.com/shankar_bojanki/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gold/70 hover:text-gold transition-colors font-medium"
+            >
+               Shankar Bojanki
+            </a>
+          </p>
         </div>
 
         {/* Back to top */}

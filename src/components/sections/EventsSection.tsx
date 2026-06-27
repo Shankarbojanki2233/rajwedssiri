@@ -14,11 +14,14 @@ function MiniCountdown({ targetDate }: { targetDate: string }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const handle = requestAnimationFrame(() => setMounted(true));
     const timer = setInterval(() => {
       setTimeLeft(getTimeRemaining(targetDate));
     }, 60_000); // update every minute for mini countdown
-    return () => clearInterval(timer);
+    return () => {
+      cancelAnimationFrame(handle);
+      clearInterval(timer);
+    };
   }, [targetDate]);
 
   if (!mounted) {

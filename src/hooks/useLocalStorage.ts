@@ -7,15 +7,18 @@ export function useLocalStorage<T>(key: string, initialValue: T) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      if (item) {
-        setStoredValue(JSON.parse(item));
+    const handle = requestAnimationFrame(() => {
+      try {
+        const item = window.localStorage.getItem(key);
+        if (item) {
+          setStoredValue(JSON.parse(item));
+        }
+      } catch (error) {
+        console.error(`Error reading localStorage key "${key}":`, error);
       }
-    } catch (error) {
-      console.error(`Error reading localStorage key "${key}":`, error);
-    }
-    setIsLoaded(true);
+      setIsLoaded(true);
+    });
+    return () => cancelAnimationFrame(handle);
   }, [key]);
 
   const setValue = (value: T | ((val: T) => T)) => {

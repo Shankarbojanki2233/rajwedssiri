@@ -1,9 +1,7 @@
 'use client';
 
-import { motion, useInView } from 'motion/react';
-import { useRef } from 'react';
+import { motion } from 'motion/react';
 import { weddingData } from '@/config/wedding-data';
-import { cn } from '@/lib/utils';
 import SectionFrame from '@/components/decorations/SectionFrame';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 import RangoliDivider from '@/components/decorations/RangoliDivider';

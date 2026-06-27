@@ -3,6 +3,16 @@
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 
+interface DiyaItem {
+  id: number;
+  style: {
+    left: string;
+    bottom: string;
+    animationDelay: string;
+    animationDuration: string;
+  };
+}
+
 interface FloatingDiyasProps {
   className?: string;
   count?: number;
@@ -10,25 +20,34 @@ interface FloatingDiyasProps {
 
 export default function FloatingDiyas({ className, count = 5 }: FloatingDiyasProps) {
   const [mounted, setMounted] = useState(false);
+  const [diyas, setDiyas] = useState<DiyaItem[]>([]);
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    const handle = requestAnimationFrame(() => {
+      const generated = Array.from({ length: count }).map((_, i) => ({
+        id: i,
+        style: {
+          left: `${15 + (i * 70) / count}%`,
+          bottom: `${10 + Math.random() * 30}%`,
+          animationDelay: `${i * 0.8}s`,
+          animationDuration: `${3 + Math.random() * 2}s`,
+        },
+      }));
+      setDiyas(generated);
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(handle);
+  }, [count]);
 
   if (!mounted) return null;
 
   return (
     <div className={cn('pointer-events-none absolute inset-0 overflow-hidden', className)} aria-hidden="true">
-      {Array.from({ length: count }).map((_, i) => (
+      {diyas.map((diya) => (
         <div
-          key={i}
+          key={diya.id}
           className="absolute animate-float-diya"
-          style={{
-            left: `${15 + (i * 70) / count}%`,
-            bottom: `${10 + Math.random() * 30}%`,
-            animationDelay: `${i * 0.8}s`,
-            animationDuration: `${3 + Math.random() * 2}s`,
-          }}
+          style={diya.style}
         >
           {/* Diya SVG */}
           <svg width="32" height="40" viewBox="0 0 32 40">

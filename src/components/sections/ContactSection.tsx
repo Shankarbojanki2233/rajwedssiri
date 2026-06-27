@@ -31,7 +31,7 @@ function ContactCard({ name, role, icon, phone, whatsapp, delay = 0 }: ContactCa
 
         {/* Role Label */}
         <p className="mb-1 text-xs font-medium uppercase tracking-wider text-gold">
-          {role} {role === 'Bride' ? <span className="font-telugu lowercase opacity-70">(వధువు)</span> : role === 'Groom' ? <span className="font-telugu lowercase opacity-70">(వరుడు)</span> : <span className="font-telugu lowercase opacity-70">(అత్యవసర విభాగం)</span>}
+          {role} {role === 'Bride' ? <span className="font-telugu lowercase opacity-70">(వధువు)</span> : role === 'Groom' ? <span className="font-telugu lowercase opacity-70">(వరుడు)</span> : <span className="font-telugu lowercase opacity-70">(ప్రత్యామ్నాయం)</span>}
         </p>
 
         {/* Name */}
@@ -125,10 +125,10 @@ export default function ContactSection() {
           delay={0.2}
         />
         <ContactCard
-          name={contact.emergency.name}
-          role="Emergency Contact"
-          icon="🆘"
-          phone={contact.emergency.phone}
+          name={contact.alternative.name}
+          role="Alternative Contact"
+          icon="📞"
+          phone={contact.alternative.phone}
           delay={0.3}
         />
       </div>

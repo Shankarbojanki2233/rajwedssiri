@@ -23,7 +23,7 @@ const GRADIENT_PALETTES = [
   'from-[#D4AF37]/20 via-[#FFFDD0] to-[#C41E3A]/30',
   'from-[#FFFFF0] via-[#006A4E]/20 to-[#D4AF37]/30',
   'from-[#C41E3A]/30 via-[#D4AF37]/20 to-[#FFFDD0]',
-  'from-[#D4AF37]/30 via-[#006A4E]/20 to-[#800020]/20',
+  'from-[#D4AF37]/20 via-[#006A4E]/20 to-[#800020]/20',
 ];
 
 // Vary aspect ratios for visual interest in masonry
@@ -78,7 +78,6 @@ function Lightbox({
   };
 
   const photo = photos[selectedIndex];
-  const gradientIndex = selectedIndex % GRADIENT_PALETTES.length;
 
   return (
     <motion.div
@@ -92,17 +91,6 @@ function Lightbox({
       aria-modal="true"
       aria-label="Photo lightbox"
     >
-      {/* Close button */}
-      <button
-        onClick={onClose}
-        className="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
-        aria-label="Close lightbox"
-      >
-        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-
       {/* Counter */}
       <div className="absolute left-4 top-4 rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">
         {selectedIndex + 1} / {photos.length}
@@ -122,53 +110,43 @@ function Lightbox({
       {/* Image area */}
       <motion.div
         key={selectedIndex}
-        className="mx-16 flex max-h-[80vh] max-w-4xl flex-col items-center"
+        className="mx-4 flex max-h-[85vh] max-w-4xl flex-col items-center cursor-zoom-out md:mx-16"
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ duration: 0.3 }}
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => { e.stopPropagation(); onClose(); }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {/* Gradient placeholder as "image" */}
+        {/* Real Image */}
         <div
           className={cn(
-            'relative flex aspect-[4/3] w-full max-w-3xl items-center justify-center rounded-xl',
-            'bg-gradient-to-br',
-            GRADIENT_PALETTES[gradientIndex],
-            'border-2 border-[#D4AF37]/40 shadow-2xl'
+            'relative flex aspect-[4/3] w-full max-w-3xl items-center justify-center overflow-hidden rounded-xl',
+            'border-2 border-[#D4AF37]/40 shadow-2xl bg-black'
           )}
         >
-          {/* Decorative rangoli pattern */}
-          <svg
-            className="absolute inset-0 h-full w-full opacity-10"
-            viewBox="0 0 200 200"
-            aria-hidden="true"
-          >
-            <circle cx="100" cy="100" r="60" fill="none" stroke="#D4AF37" strokeWidth="0.5" />
-            <circle cx="100" cy="100" r="40" fill="none" stroke="#D4AF37" strokeWidth="0.5" />
-            <circle cx="100" cy="100" r="20" fill="none" stroke="#D4AF37" strokeWidth="0.5" />
-            {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
-              <line
-                key={angle}
-                x1="100"
-                y1="100"
-                x2={100 + 60 * Math.cos((angle * Math.PI) / 180)}
-                y2={100 + 60 * Math.sin((angle * Math.PI) / 180)}
-                stroke="#D4AF37"
-                strokeWidth="0.5"
-              />
-            ))}
-          </svg>
-
-          <p className="relative z-10 px-6 text-center text-lg font-medium text-maroon md:text-xl">
-            {photo.alt}
-          </p>
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            className="h-full w-full object-contain"
+          />
         </div>
 
         {/* Caption */}
         <p className="mt-4 text-center text-sm text-white/70">{photo.alt}</p>
+
+        {/* Close button below image */}
+        <button
+          onClick={(e) => { e.stopPropagation(); onClose(); }}
+          className="mt-4 flex items-center gap-2 rounded-full bg-white/15 px-5 py-2.5 text-sm text-white shadow-lg transition-colors hover:bg-white/25"
+          aria-label="Close lightbox"
+        >
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Close
+        </button>
       </motion.div>
 
       {/* Next button */}
@@ -211,43 +189,24 @@ function GalleryCard({
         onClick={onClick}
         className={cn(
           'relative w-full overflow-hidden rounded-xl',
-          'bg-gradient-to-br',
-          GRADIENT_PALETTES[gradientIndex],
           heightClass,
           'flex items-center justify-center',
           'border border-[#D4AF37]/20 shadow-md',
-          'cursor-pointer transition-all duration-300',
+          'transition-all duration-300',
+          'cursor-pointer',
           'hover:shadow-xl hover:shadow-[#D4AF37]/20',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4AF37]'
         )}
         aria-label={`View: ${photo.alt}`}
       >
-        {/* Decorative overlay pattern */}
-        <svg
-          className="absolute inset-0 h-full w-full opacity-[0.06]"
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <circle cx="50" cy="50" r="30" fill="none" stroke="#D4AF37" strokeWidth="0.3" />
-          {[0, 60, 120, 180, 240, 300].map((angle) => (
-            <ellipse
-              key={angle}
-              cx="50"
-              cy="20"
-              rx="5"
-              ry="12"
-              fill="#D4AF37"
-              opacity="0.3"
-              transform={`rotate(${angle} 50 50)`}
-            />
-          ))}
-        </svg>
-
-        {/* Alt text displayed on the card */}
-        <p className="relative z-10 px-4 text-center text-sm font-medium leading-relaxed text-maroon/80">
-          {photo.alt}
-        </p>
+        {/* Real image with gradient loading placeholder */}
+        <div className={cn('absolute inset-0 bg-gradient-to-br', GRADIENT_PALETTES[gradientIndex])} />
+        <img
+          src={photo.src}
+          alt={photo.alt}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+        />
 
         {/* Hover overlay with zoom icon */}
         <div
@@ -281,25 +240,21 @@ function GalleryCard({
 
 // ── Gallery Section ─────────────────────────────────────────────────────
 export default function GallerySection() {
-  const [activeCategory, setActiveCategory] = useState('All');
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  const filteredPhotos =
-    activeCategory === 'All'
-      ? weddingData.gallery.photos
-      : weddingData.gallery.photos.filter((p) => p.category === activeCategory);
+  const photos = weddingData.gallery.photos;
 
   const handlePrev = useCallback(() => {
     setSelectedIndex((prev) =>
-      prev !== null ? (prev - 1 + filteredPhotos.length) % filteredPhotos.length : null
+      prev !== null ? (prev - 1 + photos.length) % photos.length : null
     );
-  }, [filteredPhotos.length]);
+  }, [photos.length]);
 
   const handleNext = useCallback(() => {
     setSelectedIndex((prev) =>
-      prev !== null ? (prev + 1) % filteredPhotos.length : null
+      prev !== null ? (prev + 1) % photos.length : null
     );
-  }, [filteredPhotos.length]);
+  }, [photos.length]);
 
   const handleClose = useCallback(() => {
     setSelectedIndex(null);
@@ -309,7 +264,7 @@ export default function GallerySection() {
     <SectionFrame id="gallery" variant="default">
       {/* Section Header */}
       <ScrollReveal direction="up">
-        <div className="mb-12 text-center">
+        <div className="mb-8 text-center">
           <motion.p
             className="mb-2 text-sm font-medium uppercase tracking-[0.3em] text-gold"
             initial={{ opacity: 0 }}
@@ -332,35 +287,12 @@ export default function GallerySection() {
         </div>
       </ScrollReveal>
 
-      {/* Category Filter Tabs */}
-      <ScrollReveal direction="up" delay={0.15} className="w-full">
-        <div className="mb-10 flex flex-wrap items-center justify-center gap-2 md:gap-3">
-          {weddingData.gallery.categories.map((category) => (
-            <motion.button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={cn(
-                'rounded-full px-4 py-2 text-sm font-medium transition-all duration-300',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold',
-                activeCategory === category
-                  ? 'bg-maroon text-ivory shadow-md shadow-maroon/30'
-                  : 'border border-gold/30 bg-ivory text-maroon hover:border-gold/60 hover:bg-gold/10'
-              )}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {category}
-            </motion.button>
-          ))}
-        </div>
-      </ScrollReveal>
-
       {/* Masonry Grid */}
       <AnimatePresence mode="popLayout">
         <motion.div
-          key={activeCategory}
+          key="gallery-grid"
           className={cn(
-            'mx-auto w-full max-w-7xl',
+            'mx-auto w-full max-w-7xl px-4',
             'columns-2 gap-4',
             'md:columns-3',
             'lg:columns-4'
@@ -370,9 +302,9 @@ export default function GallerySection() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
-          {filteredPhotos.map((photo, index) => (
+          {photos.map((photo, index) => (
             <GalleryCard
-              key={`${photo.src}-${activeCategory}`}
+              key={photo.src}
               photo={photo}
               index={index}
               onClick={() => setSelectedIndex(index)}
@@ -381,18 +313,11 @@ export default function GallerySection() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Empty state */}
-      {filteredPhotos.length === 0 && (
-        <div className="py-16 text-center text-[#800020]/40">
-          <p className="text-lg">No photos in this category yet.</p>
-        </div>
-      )}
-
       {/* Lightbox */}
       <AnimatePresence>
         {selectedIndex !== null && (
           <Lightbox
-            photos={filteredPhotos}
+            photos={photos}
             selectedIndex={selectedIndex}
             onClose={handleClose}
             onPrev={handlePrev}

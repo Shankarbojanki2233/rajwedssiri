@@ -6,14 +6,22 @@ import { weddingData } from '@/config/wedding-data';
 import SectionFrame from '@/components/decorations/SectionFrame';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 import RangoliDivider from '@/components/decorations/RangoliDivider';
-import { cn } from '@/lib/utils';
 
 export default function MusicSection() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
   const [volume, setVolume] = useState(0.5);
   const [isMuted, setIsMuted] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const formatTime = (time: number) => {
+    if (isNaN(time)) return '0:00';
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
 
   const tracks = weddingData.music.tracks;
 
@@ -292,18 +300,23 @@ export default function MusicSection() {
           {/* Progress Bar */}
           <div className="w-full max-w-md mx-auto">
             <div className="flex items-center justify-center gap-2 text-xs text-maroon/50">
-              <span>0:00</span>
+              <span>{formatTime(currentTime)}</span>
               <div className="flex-1 h-1 bg-gold/20 rounded">
                 <div
                   className="h-full bg-gold rounded"
-                  style={{ width: isPlaying ? '50%' : '0%' }}
+                  style={{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }}
                 />
               </div>
-              <span>0:00</span>
+              <span>{formatTime(duration)}</span>
             </div>
           </div>
         </div>
       </motion.div>
+      <audio
+        ref={audioRef}
+        onTimeUpdate={(e) => setCurrentTime(e.currentTarget.currentTime)}
+        onDurationChange={(e) => setDuration(e.currentTarget.duration)}
+      />
     </SectionFrame>
   );
 }

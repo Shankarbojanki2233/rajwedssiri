@@ -44,8 +44,8 @@ function LotusMarker({ icon }: { icon: string }) {
   );
 }
 
-// ── Photo Placeholder ───────────────────────────────────────────────────────
-function PhotoPlaceholder({ index }: { index: number }) {
+// ── Photo Placeholder / Real Photo ─────────────────────────────────────────
+function PhotoPlaceholder({ index, photo, title }: { index: number; photo?: string; title?: string }) {
   const gradients = [
     'from-gold/30 via-temple-red/20 to-maroon/30',
     'from-peacock/20 via-gold/30 to-sandalwood/20',
@@ -64,26 +64,36 @@ function PhotoPlaceholder({ index }: { index: number }) {
         'border border-gold/30 shadow-lg'
       )}
     >
-      <div
-        className={cn(
-          'absolute inset-0 bg-gradient-to-br',
-          gradients[index % gradients.length]
-        )}
-      />
-      {/* Decorative pattern overlay */}
-      <div className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, #D4AF37 1px, transparent 1px),
-                            radial-gradient(circle at 75% 75%, #D4AF37 1px, transparent 1px)`,
-          backgroundSize: '24px 24px',
-        }}
-      />
-      {/* Initials */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <span className="font-display text-3xl tracking-widest text-gold/60 md:text-4xl">
-          {bride} & {groom}
-        </span>
-      </div>
+      {photo ? (
+        <img
+          src={photo}
+          alt={title || "Wedding story photo"}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+        />
+      ) : (
+        <>
+          <div
+            className={cn(
+              'absolute inset-0 bg-gradient-to-br',
+              gradients[index % gradients.length]
+            )}
+          />
+          {/* Decorative pattern overlay */}
+          <div className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: `radial-gradient(circle at 25% 25%, #D4AF37 1px, transparent 1px),
+                                radial-gradient(circle at 75% 75%, #D4AF37 1px, transparent 1px)`,
+              backgroundSize: '24px 24px',
+            }}
+          />
+          {/* Initials */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="font-display text-3xl tracking-widest text-gold/60 md:text-4xl">
+              {bride} & {groom}
+            </span>
+          </div>
+        </>
+      )}
     </div>
   );
 }
@@ -122,7 +132,7 @@ function TimelineItem({
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <PhotoPlaceholder index={index} />
+            <PhotoPlaceholder index={index} photo={milestone.photo} title={milestone.title} />
           </motion.div>
         )}
       </div>
@@ -149,7 +159,7 @@ function TimelineItem({
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            <PhotoPlaceholder index={index} />
+            <PhotoPlaceholder index={index} photo={milestone.photo} title={milestone.title} />
           </motion.div>
         ) : (
           <motion.div
@@ -183,7 +193,7 @@ function TimelineItem({
           <TimelineCard milestone={milestone} index={index} align="center" />
           <div className="mt-4 flex justify-center">
             <div className="w-full max-w-[280px]">
-              <PhotoPlaceholder index={index} />
+              <PhotoPlaceholder index={index} photo={milestone.photo} title={milestone.title} />
             </div>
           </div>
         </motion.div>
@@ -195,8 +205,6 @@ function TimelineItem({
 // ── Timeline Card ───────────────────────────────────────────────────────────
 function TimelineCard({
   milestone,
-  index,
-  align,
 }: {
   milestone: (typeof weddingData.coupleStory)[number];
   index: number;

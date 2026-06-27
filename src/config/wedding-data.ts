@@ -45,7 +45,7 @@ export const weddingData = {
     invitationText:
       "With the blessings of our families,\nwe cordially invite you to celebrate our wedding.",
     teluguBlessing: "శ్రీ గణేశాయ నమః",
-    hashtag: "#NagarajuWedSireesha",
+    hashtag: "#NagarajuWedsSireesha",
   },
 
   // ── Events ──────────────────────────────────────────────────────────────
@@ -162,10 +162,10 @@ export const weddingData = {
   venue: {
     name: "Bride's Residence",
     address: "Datti Village, Datti Rajeru (m), Vizianagaram District, Andhra Pradesh",
-    mapUrl: "https://maps.google.com/?q=Datti+Village,Vizianagaram",
+    mapUrl: "https://www.google.com/maps/place/18%C2%B024'08.7%22N+83%C2%B023'28.9%22E/@18.402346,83.3854478,15.53z/data=!4m4!3m3!8m2!3d18.4024183!4d83.391355?hl=en&entry=ttu",
     embedUrl:
-      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3790.2!2d83.35!3d18.35!2m3!1f0!2f0!3f0!3m3!1m2!1s0x0%3A0x0!2zMTjCsDIxJzAwLjAiTiA4M8KwMjEnMDAuMCJF!5e0!3m2!1sen!2sin!4v1",
-    coordinates: { lat: 18.35, lng: 83.35 },
+      "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3790.0!2d83.391355!3d18.4024183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTjCsDI0JzA4LjciTiA4M8KwMjMnMjguOSJF!5e0!3m2!1sen!2sin!4v1",
+    coordinates: { lat: 18.4024183, lng: 83.391355 },
     phone: "+91 98765 43210",
     parking: "Ample parking available at the venue.",
     nearbyHotels: [
@@ -180,18 +180,22 @@ export const weddingData = {
   gallery: {
     categories: ["All", "Pre Wedding", "Engagement", "Family", "Wedding", "Reception"],
     photos: [
-      { src: "/images/gallery/1.jpg", category: "Pre Wedding", alt: "Pre-wedding photoshoot at Golconda Fort" },
-      { src: "/images/gallery/2.jpg", category: "Pre Wedding", alt: "Couple at Charminar" },
-      { src: "/images/gallery/3.jpg", category: "Engagement", alt: "Ring ceremony" },
-      { src: "/images/gallery/4.jpg", category: "Engagement", alt: "Engagement celebrations" },
-      { src: "/images/gallery/5.jpg", category: "Family", alt: "Family blessings" },
-      { src: "/images/gallery/6.jpg", category: "Family", alt: "Family gathering" },
-      { src: "/images/gallery/7.jpg", category: "Wedding", alt: "Wedding preparations" },
-      { src: "/images/gallery/8.jpg", category: "Wedding", alt: "Traditional rituals" },
-      { src: "/images/gallery/9.jpg", category: "Reception", alt: "Reception dinner" },
-      { src: "/images/gallery/10.jpg", category: "Reception", alt: "Dance performances" },
-      { src: "/images/gallery/11.jpg", category: "Pre Wedding", alt: "Sunset shoot" },
-      { src: "/images/gallery/12.jpg", category: "Wedding", alt: "Muhurtham ceremony" },
+      { src: "/images/gallery/grb01612.jpg", category: "Pre Wedding", alt: "Pre Wedding Shoot" },
+      { src: "/images/gallery/grb01616.jpg", category: "Pre Wedding", alt: "Pre Wedding Shoot" },
+      { src: "/images/gallery/grb01630.jpg", category: "Engagement", alt: "Engagement ceremony" },
+      { src: "/images/gallery/grb01677.jpg", category: "Engagement", alt: "Engagement ceremony" },
+      { src: "/images/gallery/grb01729.jpg", category: "Engagement", alt: "Engagement ceremony" },
+      { src: "/images/gallery/grb01778.jpg", category: "Family", alt: "Family blessings" },
+      { src: "/images/gallery/grb01795.jpg", category: "Family", alt: "Family blessings" },
+      { src: "/images/gallery/grb01910.jpg", category: "Family", alt: "Family blessings" },
+      { src: "/images/gallery/grb01932.jpg", category: "Wedding", alt: "Muhurtham rituals" },
+      { src: "/images/gallery/grb01952.jpg", category: "Wedding", alt: "Muhurtham rituals" },
+      { src: "/images/gallery/grb01977.jpg", category: "Wedding", alt: "Muhurtham rituals" },
+      { src: "/images/gallery/grb01993.jpg", category: "Reception", alt: "Reception dinner" },
+      { src: "/images/gallery/grb02001.jpg", category: "Reception", alt: "Reception dinner" },
+      { src: "/images/gallery/grb02030.jpg", category: "Reception", alt: "Reception dinner" },
+      { src: "/images/gallery/grb02104.jpg", category: "Pre Wedding", alt: "Pre Wedding Shoot" },
+      { src: "/images/gallery/grb02113.jpg", category: "Pre Wedding", alt: "Pre Wedding Shoot" },
     ],
   },
 
@@ -221,7 +225,7 @@ export const weddingData = {
       english: "Marriage is the union of two hearts and the bond of two families.",
     },
     {
-      telugu: "ప్రేమ అనేది కళ్లకు కనిపించదు, హృదయానికి Telusuto.",
+      telugu: "ప్రేమ అనేది కళ్లకు కనిపించదు, హృదయానికి తెలుస్తుంది.",
       english: "Love is invisible to the eyes but known to the heart.",
     },
     {
@@ -261,9 +265,9 @@ export const weddingData = {
 
   // ── Contact ─────────────────────────────────────────────────────────────
   contact: {
-    bride: { name: "Sireesha", phone: "", whatsapp: "" },
-    groom: { name: "Nagaraju", phone: "", whatsapp: "" },
-    emergency: { name: "Family Member", phone: "" },
+    bride: { name: "Sireesha", phone: "8328528653", whatsapp: "8328528653" },
+    groom: { name: "Nagaraju", phone: "7075593299", whatsapp: "7075593299" },
+    alternative: { name: "Alternative Contact", phone: "8897702728" },
     email: "sireeshawedsnagaraju2026@gmail.com",
   },
 

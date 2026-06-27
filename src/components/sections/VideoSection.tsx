@@ -5,7 +5,6 @@ import { weddingData } from '@/config/wedding-data';
 import SectionFrame from '@/components/decorations/SectionFrame';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 import RangoliDivider from '@/components/decorations/RangoliDivider';
-import { cn } from '@/lib/utils';
 
 export default function VideoSection() {
   const { video } = weddingData;

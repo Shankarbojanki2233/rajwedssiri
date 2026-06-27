@@ -7,8 +7,6 @@ import { cn } from '@/lib/utils';
 import SectionFrame from '@/components/decorations/SectionFrame';
 import ScrollReveal from '@/components/animations/ScrollReveal';
 
-// ── Types ───────────────────────────────────────────────────────────────────
-type PersonData = typeof weddingData.couple.bride;
 
 // ── Instagram Icon ──────────────────────────────────────────────────────────
 function InstagramIcon({ className }: { className?: string }) {
@@ -118,13 +116,8 @@ function MandalaDecoration() {
   );
 }
 
-// ── Profile Photo Placeholder ───────────────────────────────────────────────
-function ProfilePhoto({ person, variant }: { person: PersonData; variant: 'bride' | 'groom' }) {
-  const gradients = {
-    bride: 'from-temple-red/30 via-gold/20 to-maroon/30',
-    groom: 'from-peacock/30 via-gold/20 to-maroon/30',
-  };
-
+// ── Profile Photo ───────────────────────────────────────────────────────────
+function ProfilePhoto({ person, variant }: { person: typeof weddingData.couple.bride; variant: 'bride' | 'groom' }) {
   return (
     <div className="relative mx-auto h-44 w-44 md:h-52 md:w-52">
       {/* Ornamental outer ring */}
@@ -175,28 +168,19 @@ function ProfilePhoto({ person, variant }: { person: PersonData; variant: 'bride
           'border-2 border-gold/40 shadow-xl shadow-gold/10'
         )}
       >
-        <div className={cn('absolute inset-0 bg-gradient-to-br', gradients[variant])} />
-        {/* Subtle pattern */}
-        <div
-          className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `radial-gradient(circle, #D4AF37 1px, transparent 1px)`,
-            backgroundSize: '16px 16px',
-          }}
+        {/* Actual photo */}
+        <img
+          src={person.photo}
+          alt={person.fullName}
+          className="absolute inset-0 h-full w-full object-cover"
         />
-        {/* Initial letter */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="font-display text-5xl font-bold text-gold/50 md:text-6xl">
-            {person.firstName[0]}
-          </span>
-        </div>
       </div>
     </div>
   );
 }
 
 // ── Profile Card ────────────────────────────────────────────────────────────
-function ProfileCard({ person, variant, delay }: { person: PersonData; variant: 'bride' | 'groom'; delay: number }) {
+function ProfileCard({ person, variant, delay }: { person: typeof weddingData.couple.bride; variant: 'bride' | 'groom'; delay: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
@@ -205,7 +189,7 @@ function ProfileCard({ person, variant, delay }: { person: PersonData; variant: 
   return (
     <motion.div
       ref={ref}
-      className="relative flex flex-col items-center"
+      className="relative flex w-full max-w-sm flex-col items-center mx-auto"
       initial={{ opacity: 0, y: 50 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -376,21 +360,22 @@ export default function BrideGroomSection() {
         <div className="mx-auto mt-4 h-px w-32 bg-gradient-to-r from-transparent via-gold to-transparent" />
       </ScrollReveal>
 
-      {/* Profile Cards Grid */}
-      <div className="mx-auto grid w-full max-w-5xl grid-cols-1 items-center justify-items-center gap-10 md:grid-cols-[1fr_auto_1fr] md:gap-8">
+{/* Profile Cards Grid */}
+       <div className="mx-auto flex max-w-4xl flex-col items-center gap-8 px-4 md:flex-row md:items-center md:justify-center md:gap-6 lg:gap-8">
         {/* Bride Card */}
-        <ProfileCard person={bride} variant="bride" delay={0} />
+        <div className="w-full max-w-sm">
+          <ProfileCard person={bride} variant="bride" delay={0} />
+        </div>
 
         {/* Center Mandala Decoration */}
-        <div className="hidden items-center justify-center self-center md:flex">
-          <MandalaDecoration />
-        </div>
-        <div className="flex items-center justify-center md:hidden">
+        <div className="flex shrink-0 items-center justify-center md:self-center">
           <MandalaDecoration />
         </div>
 
         {/* Groom Card */}
-        <ProfileCard person={groom} variant="groom" delay={0.2} />
+        <div className="w-full max-w-sm">
+          <ProfileCard person={groom} variant="groom" delay={0.2} />
+        </div>
       </div>
 
       {/* Bottom Blessing */}
