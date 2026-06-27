@@ -186,7 +186,7 @@ function FamilyMemberCard({
             {/* Initial letter fallback */}
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="font-display text-5xl font-bold text-gold/50">
-                {member.name.charAt(0)}
+                {variant === 'bride' ? weddingData.couple.bride.firstName.charAt(0) : weddingData.couple.groom.firstName.charAt(0)}
               </span>
             </div>
           </div>
